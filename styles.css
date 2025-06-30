@@ -1,0 +1,205 @@
+/* body {
+  text-align: center;
+  background-color: #011F3F;
+}
+
+#level-title {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 3rem;
+  margin:  5%;
+  color: #FEF2BF;
+}
+
+.container {
+  display: block;
+  width: 50%;
+  margin: auto;
+
+}
+
+.btn {
+  margin: 25px;
+  display: inline-block;
+  height: 200px;
+  width: 200px;
+  border: 10px solid black;
+  border-radius: 20%;
+}
+
+.game-over {
+  background-color: red;
+  opacity: 0.8;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
+
+.yellow {
+  background-color: yellow;
+}
+
+.pressed {
+  box-shadow: 0 0 20px white;
+  background-color: grey;
+} */
+
+
+
+body {
+  text-align: center;
+  background: linear-gradient(135deg, #011F3F, #023059);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Press Start 2P', cursive;
+  overflow-x: hidden;
+  animation: backgroundAnimation 8s linear infinite; /* Continuous background color animation */
+}
+
+#start-btn {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  margin: 20px auto;
+  display: block;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+
+@keyframes backgroundAnimation {
+  0% { background-color: #011F3F; }
+  25% { background-color: #023059; }
+  50% { background-color: #FFDC00; }
+  75% { background-color: #FEF2BF; }
+  100% { background-color: #011F3F; }
+}
+
+#level-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 5%;
+  color: #FEF2BF;
+  text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.6);
+  letter-spacing: 3px;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+  gap: 20px;
+}
+
+.btn {
+  margin: 15px;
+  display: inline-block;
+  height: 150px;
+  width: 150px;
+  border: 10px solid rgba(0, 0, 0, 0.7);
+  border-radius: 50%; /* Change to full circle */
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+}
+
+.btn:hover {
+  transform: scale(1.1) rotate(5deg); /* Add rotation on hover */
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6); /* Intense shadow on hover */
+}
+
+.game-over {
+  background-color: red;
+  opacity: 0.9; /* More visible */
+  animation: shake 0.5s, glitchEffect 0.3s infinite;
+  border-radius: 30px; /* Consistent rounded corners */
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+  20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+.red {
+  background-color: #FF4136;
+  box-shadow: 0 0 20px rgba(255, 65, 54, 0.7); /* More pronounced shadow */
+}
+
+.green {
+  background-color: #2ECC40;
+  box-shadow: 0 0 20px rgba(46, 204, 64, 0.7);
+}
+
+.blue {
+  background-color: #0074D9;
+  box-shadow: 0 0 20px rgba(0, 116, 217, 0.7);
+}
+
+.yellow {
+  background-color: #FFDC00;
+  box-shadow: 0 0 20px rgba(255, 220, 0, 0.7);
+}
+
+.pressed {
+  box-shadow: 0 0 40px white, 0 0 60px rgba(255, 255, 255, 0.8);
+  background-color: #6c757d; /* Updated to a more vibrant gray */
+  transform: scale(0.9) rotate(-5deg); /* Increased dynamics */
+  animation: press-animation 0.5s forwards;
+}
+
+@keyframes press-animation {
+  0% {
+    transform: scale(1) rotate(0);
+  }
+  50% {
+    transform: scale(0.85) rotate(-5deg);
+    background-color: #5a6268; /* Darker shade during press */
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    background-color: #6c757d; /* Retain original bg */
+    box-shadow: 0 0 40px white, 0 0 60px rgba(255, 255, 255, 0.6);
+  }
+}
+
+.highlight {
+  box-shadow: 0 0 60px white, 0 0 100px rgba(255, 255, 255, 0.7);
+  transform: scale(1.25); /* Increased scale for emphasis */
+  transition: all 0.2s ease;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 600px) {
+  .btn {
+    height: 100px;
+    width: 100px;
+    margin: 10px;
+  }
+
+  #level-title {
+    font-size: 1.5rem;
+  }
+}
