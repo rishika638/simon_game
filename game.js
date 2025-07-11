@@ -215,4 +215,51 @@ function startOver() {
 
 
 
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (window.SpeechRecognition) {
+  const recognition = new SpeechRecognition();
+  recognition.lang = "en-US";
+  recognition.interimResults = false;
+  recognition.continuous = true;
+
+  recognition.start();
+
+  recognition.onstart = function () {
+    console.log("🎙️ Voice recognition started.");
+    $("#mic-status").text("🎤 Listening...");
+  };
+
+  recognition.onend = function () {
+    console.log("🔁 Restarting voice recognition...");
+    $("#mic-status").text("🔇 Restarting mic...");
+    recognition.start(); // Auto-restart
+  };
+
+  recognition.onresult = function (event) {
+    const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
+    console.log("🎤 Voice input:", transcript);
+
+    if (buttonColours.includes(transcript)) {
+      userClickedPattern.push(transcript);
+      console.log("📥 User spoke pattern:", userClickedPattern);
+
+      playSound(transcript);
+      animatePress(transcript);
+      checkAnswer(userClickedPattern.length - 1);
+    } else {
+      console.log("🚫 Invalid color spoken:", transcript);
+    }
+  };
+
+  recognition.onerror = function (event) {
+    console.error("❌ Voice recognition error:", event.error);
+    $("#mic-status").text("❌ Mic error");
+  };
+} else {
+  alert("Speech Recognition not supported in this browser. Try using Chrome.");
+}
+
+
+
 
