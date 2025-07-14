@@ -1,6 +1,5 @@
 
 
-
 var buttonColours = ["red", "blue", "green", "yellow"];
 
 var gamePattern = [];
@@ -17,7 +16,7 @@ $(document).keydown(function () {
   }
 });
 
-$(".btn").click(function() {
+$(".btn").click(function () {
   var userChosenColour = $(this).attr("id");
   userClickedPattern.push(userChosenColour);
 
@@ -99,8 +98,7 @@ function startOver() {
   started = false;
 }
 
-
-
+// ✅ ✅ ✅ FIXED VOICE INPUT BELOW
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
 if (window.SpeechRecognition) {
@@ -126,16 +124,20 @@ if (window.SpeechRecognition) {
     const transcript = event.results[event.results.length - 1][0].transcript.trim().toLowerCase();
     console.log("🎤 Voice input:", transcript);
 
-    if (buttonColours.includes(transcript)) {
-      userClickedPattern.push(transcript);
-      console.log("📥 User spoke pattern:", userClickedPattern);
+    // ✅ FIX: Split spoken sentence like "blue green red"
+    const spokenWords = transcript.split(" ");
+    spokenWords.forEach(word => {
+      if (buttonColours.includes(word)) {
+        userClickedPattern.push(word);
+        console.log("📥 User spoke:", word, " | Total pattern:", userClickedPattern);
 
-      playSound(transcript);
-      animatePress(transcript);
-      checkAnswer(userClickedPattern.length - 1);
-    } else {
-      console.log("🚫 Invalid color spoken:", transcript);
-    }
+        playSound(word);
+        animatePress(word);
+        checkAnswer(userClickedPattern.length - 1);
+      } else {
+        console.log("🚫 Invalid color spoken:", word);
+      }
+    });
   };
 
   recognition.onerror = function (event) {
@@ -145,7 +147,6 @@ if (window.SpeechRecognition) {
 } else {
   alert("Speech Recognition not supported in this browser. Try using Chrome.");
 }
-
 
 
 
